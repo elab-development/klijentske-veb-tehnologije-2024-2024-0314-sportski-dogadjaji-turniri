@@ -1,21 +1,21 @@
 import React from 'react';
 
 interface DugmeProps {
-    tekst: string;
+    labela: string;
     akcija?: () => void;
     tip?: 'button' | 'submit';
     vrsta?: 'primarno' | 'secondary';
 }
 
 export const Dugme: React.FC<DugmeProps> = ({ 
-    tekst, 
+    labela, 
     akcija, 
     tip = 'button', 
     vrsta = 'primarno',
 }) => {
     return (
         <button type={tip} onClick={akcija} className={`dugme dugme-${vrsta}`}>
-            {tekst}
+            {labela}
         </button>
     );
 }
