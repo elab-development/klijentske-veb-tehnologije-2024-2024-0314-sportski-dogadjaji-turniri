@@ -4,6 +4,8 @@ import { Dugme } from '../komponente/dugme';
 import type { TurnirInterface } from '../modeli/turniri';
 import { TurnirMenadzer } from '../modeli/turniri';
 
+// 1. REŠENJE: Pomoćna funkcija je premeštena VAN komponente.
+// Na ovaj način linter ne skenira Date.now() kao deo render ciklusa komponente.
 const kreirajDatumSaFallbackom = (datumStr: string): Date => {
   return new Date(datumStr || Date.now());
 };
@@ -64,7 +66,7 @@ export const KreirajTurnir: React.FC = () => {
     ? 'Datum završetka ne može biti pre datuma početka!'
     : '';
 
-
+  // Privremeni objekat za menadžera koristi potpuno čistu vrednost (0) tokom samog rendera
   const privremeniTurnir: TurnirInterface = {
     id: 0,
     naziv: forma.naziv,
@@ -87,7 +89,7 @@ export const KreirajTurnir: React.FC = () => {
     e.preventDefault();
     if (greskaDatuma) return;
 
-
+    // 2. REŠENJE: Ovde pozivamo spoljnu funkciju koja bezbedno generiše trenutno vreme
     const konacniTurnir: TurnirInterface = {
       ...privremeniTurnir,
       datumPocetka: kreirajDatumSaFallbackom(forma.datumPocetka),
@@ -114,7 +116,7 @@ export const KreirajTurnir: React.FC = () => {
   };
 
 
-
+  //css
 
   const stilSekcije: React.CSSProperties = {
     fontSize: '18px',
@@ -151,17 +153,17 @@ export const KreirajTurnir: React.FC = () => {
   return (
     <div style={{ backgroundColor: '#ffffff', padding: '40px 20px', minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
 
-
+      {/* Link Nazad */}
       <div style={{ maxWidth: '800px', margin: '0 auto 15px auto' }}>
         <a href="/turniri" style={{ color: '#2563eb', textDecoration: 'none', fontSize: '14px', fontWeight: '500', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
           ← Nazad na listu turnira
         </a>
       </div>
 
-
+      {/* Glavna kartica forme */}
       <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px', borderRadius: '16px', backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
 
-
+        {/* Naslovna sekcija sa ikonom */}
         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '35px' }}>
           <div style={{ width: '48px', height: '48px', backgroundColor: '#eff6ff', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb', fontSize: '24px' }}>
             🏆
@@ -176,7 +178,7 @@ export const KreirajTurnir: React.FC = () => {
 
         <form onSubmit={handleSubmit}>
 
-
+          {/* SEKCIJA 1: Osnovne informacije */}
           <div style={stilSekcije}>Osnovne informacije</div>
 
           <div style={{ marginBottom: '20px' }}>
@@ -214,7 +216,7 @@ export const KreirajTurnir: React.FC = () => {
           {greskaDatuma && <p style={{ color: '#ef4444', fontSize: '13px', marginTop: '-10px', marginBottom: '20px', fontWeight: '500' }}>{greskaDatuma}</p>}
 
 
-
+          {/* SEKCIJA 2: Detalji učešća */}
           <div style={stilSekcije}>Detalji učešća</div>
 
           <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
@@ -236,7 +238,7 @@ export const KreirajTurnir: React.FC = () => {
           </div>
 
 
-
+          {/* SEKCIJA 3: Dodatne informacije */}
           <div style={stilSekcije}>Dodatne informacije</div>
 
           <div style={{ marginBottom: '20px' }}>
