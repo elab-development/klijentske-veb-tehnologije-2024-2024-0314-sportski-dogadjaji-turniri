@@ -29,25 +29,25 @@ export const Turniri: React.FC = () => {
         const testPodaci: TurnirInterface[] = [
             {
                 id: 1,
-                naziv: "Letnji turnir 2026",
+                naziv: "Letnji Fudbalski Turnir 2026",
                 sport: "Fudbal",
                 format: "Grupna faza",
-                lokacija: "Stadion FK Partizan, Beograd",
-                datumPocetka: new Date('2026-06-01'),
-                datumZavrsetka: new Date('2026-06-05'),
+                lokacija: "Stadion FK Partizan, Beograd, Srbija",
+                datumPocetka: new Date('2026-06-15'),
+                datumZavrsetka: new Date('2026-06-20'),
                 maxTimova: 16,
                 prijavljenoTimova: 16,
                 kotizacija: 5000,
                 nagradniFond: 50000,
-                status: "Zatvorene prijave",
-                urlSlike: "https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FAssociation_football&ved=0CBYQjRxqFwoTCKiNoa6qlJUDFQAAAAAdAAAAABAF&opi=89978449",
+                status: "Otvorene prijave",
+                urlSlike: "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500",
                 opis: "Pridružite se najvećem letnjem turniru."
             },
             {
                 id: 2,
                 naziv: 'Košarkaška Liga - Prolećna Sezona',
                 sport: 'Košarka',
-                format: '8/12 timova',
+                format: 'Ligaški sistem',
                 lokacija: 'Novi Sad, Srbija',
                 datumPocetka: new Date('2026-06-01'),
                 datumZavrsetka: new Date('2026-06-30'),
@@ -58,9 +58,25 @@ export const Turniri: React.FC = () => {
                 status: 'Otvorene prijave',
                 urlSlike: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500',
                 opis: 'Tradicionalni turnir u basketu.'
+            },
+            {
+                id: 3,
+                naziv: 'Teniski Open Šampionat',
+                sport: 'Tenis',
+                format: 'Kup sistem na ispadanje',
+                lokacija: 'Niš, Srbija',
+                datumPocetka: new Date('2026-07-10'),
+                datumZavrsetka: new Date('2026-07-15'),
+                maxTimova: 32,
+                prijavljenoTimova: 32,
+                kotizacija: 3000,
+                nagradniFond: 60000,
+                status: 'Zatvorene prijave',
+                urlSlike: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=500',
+                opis: 'Godišnji teniski šampionat.'
             }
         ];
-        const mnogoTurnira: TurnirInterface[] = Array.from({ length: 40 }, (_, index) => {
+        const mnogoTurnira: TurnirInterface[] = Array.from({ length: 42 }, (_, index) => {
             const sablon = testPodaci[index % testPodaci.length];
             return {
                 ...sablon,
@@ -84,15 +100,12 @@ export const Turniri: React.FC = () => {
 
     const brojStranica = Math.ceil(prikazaniTurniri.length / turniraPoStranici);
     return (
-        // Glavni kontejner: svetla pozadina i puno prostora oko sadržaja
         <div style={{ padding: '40px 20px', backgroundColor: '#ffffff', minHeight: '100vh', width: '100%', margin: '0 auto', fontFamily: 'sans-serif', boxSizing: 'border-box' }}>
             <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
 
-                {/* Naslov: postavlja osnovni tekst i marginu za bolju čitljivost */}
                 <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#0f172a', marginBottom: '4px' }}>Svi turniri</h1>
                 <p style={{ color: '#64748b', fontSize: '15px', marginBottom: '30px' }}>Pronađite savršen turnir za vas</p>
 
-                {/* Filteri: flex layout omogućava da se polja lepo ređaju u redu, a flexWrap osigurava da pređu u novi red ako je ekran uzak */}
                 <div style={{
                     display: 'flex',
                     gap: '16px',
@@ -105,6 +118,7 @@ export const Turniri: React.FC = () => {
                         <option value="Svi">Svi sportovi</option>
                         <option value="Fudbal">Fudbal</option>
                         <option value="Košarka">Košarka</option>
+                        <option value="Tenis">Tenis</option>
                     </select>
 
                     {/* Filter za status */}

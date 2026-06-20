@@ -5,26 +5,39 @@ import { LokacijaVreme } from '../komponente/LokacijaVreme';
 export const TurnirDetalji: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const idNum = parseInt(id || '1', 10);
-    const isEven = idNum % 2 === 0;
+    const mod = idNum % 3;
+    const isTenis = mod === 0;
+    const isKosarka = mod === 2;
 
-    const naziv = isEven ? `Košarkaška Liga - Prolećna Sezona #${idNum}` : `Letnji Fudbalski Turnir 2026 #${idNum}`;
-    const sport = isEven ? 'Košarka' : 'Fudbal';
-    const status = isEven ? 'Otvorene prijave' : 'Zatvorene prijave';
-    const lokacija = isEven ? 'Novi Sad, Srbija' : 'Stadion FK Partizan, Beograd, Srbija';
-    const datumPocetka = isEven ? '01 Jun 2026' : '15 Jun 2026';
-    const datumZavrsetka = isEven ? '30 Jun 2026' : '20 Jun 2026';
-    const rokPrijava = isEven ? '25 Maj 2026' : '10 Jun 2026';
-    const maxTimova = isEven ? 12 : 16;
-    const prijavljenoTimova = isEven ? 8 : 16;
-    const kotizacija = isEven ? 4000 : 5000;
-    const nagradniFond = isEven ? 45000 : 50000;
-    const format = isEven ? 'Ligaški sistem' : 'Grupna faza + Nokaut sistem';
-    const slikaPozadine = isEven 
-        ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200&q=80'
-        : 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1200&q=80';
+    const naziv = isTenis 
+        ? `Teniski Open Šampionat #${idNum}`
+        : isKosarka 
+        ? `Košarkaška Liga - Prolećna Sezona #${idNum}`
+        : `Letnji Fudbalski Turnir 2026 #${idNum}`;
 
+    const sport = isTenis ? 'Tenis' : isKosarka ? 'Košarka' : 'Fudbal';
+    const status = isTenis ? 'Popunjeno' : 'Otvorene prijave';
+    const lokacija = isTenis ? 'Niš, Srbija' : isKosarka ? 'Novi Sad, Srbija' : 'Stadion FK Partizan, Beograd, Srbija';
+    const datumPocetka = isTenis ? '10 Jul 2026' : isKosarka ? '01 Jun 2026' : '15 Jun 2026';
+    const datumZavrsetka = isTenis ? '15 Jul 2026' : isKosarka ? '30 Jun 2026' : '20 Jun 2026';
+    const rokPrijava = isTenis ? '05 Jul 2026' : isKosarka ? '25 Maj 2026' : '10 Jun 2026';
+    const maxTimova = isTenis ? 32 : isKosarka ? 12 : 16;
+    const prijavljenoTimova = isTenis ? 32 : isKosarka ? 8 : 16;
+    const kotizacija = isTenis ? 3000 : isKosarka ? 4000 : 5000;
+    const nagradniFond = isTenis ? 60000 : isKosarka ? 45000 : 50000;
+    const format = isTenis ? 'Kup sistem na ispadanje' : isKosarka ? 'Ligaški sistem' : 'Grupna faza + Nokaut sistem';
+    const slikaPozadine = isTenis 
+        ? 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=1200'
+        : isKosarka 
+        ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200'
+        : 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200';
 
-    const pravila = isEven ? [
+    const pravila = isTenis ? [
+        'Igra se na dva dobijena seta',
+        'Standardna teniska pravila i tie-break',
+        'U slučaju kiše, mečevi se odlažu za naredni dan',
+        'Obezbeđene su nove loptice za svaki meč'
+    ] : isKosarka ? [
         'Igra se po standardnim FIBA pravilima 3x3 na jedan koš',
         'Svaki tim se sastoji od 4 igrača (3 na terenu + 1 zamena)',
         'Utakmica traje 10 minuta ili dok jedan tim ne postigne 21 poen',
@@ -38,9 +51,9 @@ export const TurnirDetalji: React.FC = () => {
         'Registracija se zatvara 5 dana pre turnira'
     ];
 
-
-
-    const timovi = isEven 
+    const timovi = isTenis
+        ? ['Novak Đ.', 'Janko T.', 'Viktor T.', 'Dušan L.', 'Laslo Đ.', 'Filip K.']
+        : isKosarka 
         ? ['Novi Sad 3x3', 'Liman 3x3', 'Vojvodina', 'Dunavske zvezde', 'Podbara', 'Detelinara', 'Železničar', 'Telep']
         : ['FC Vračar', 'Dorćol United', 'Novi Beograd FC', 'Zvezdara Stars', 'Palilula FC', 'Savski Venac'];
 
@@ -137,7 +150,7 @@ export const TurnirDetalji: React.FC = () => {
                                     <div style={{ width: '40px', height: '40px', backgroundColor: '#eff6ff', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb', fontSize: '18px' }}>👤</div>
                                     <div>
                                         <div style={{ fontSize: '15px', fontWeight: '700', color: '#0f172a' }}>{tim}</div>
-                                        <div style={{ fontSize: '12px', color: '#64748b' }}>{isEven ? '4' : '11'} igrača</div>
+                                        <div style={{ fontSize: '12px', color: '#64748b' }}>{isKosarka ? '4' : isTenis ? '1' : '11'} igrača</div>
                                     </div>
                                 </div>
                             ))}
