@@ -52,8 +52,8 @@ export const KreirajTurnir: React.FC = () => {
 
   const pocetak = forma.datumPocetka ? new Date(forma.datumPocetka) : null;
   const kraj = forma.datumZavrsetka ? new Date(forma.datumZavrsetka) : null;
-  const greskaDatuma = pocetak && kraj && kraj < pocetak 
-    ? 'Datum završetka ne može biti pre datuma početka!' 
+  const greskaDatuma = pocetak && kraj && kraj < pocetak
+    ? 'Datum završetka ne može biti pre datuma početka!'
     : '';
 
   // Privremeni objekat za menadžera koristi potpuno čistu vrednost (0) tokom samog rendera
@@ -88,7 +88,7 @@ export const KreirajTurnir: React.FC = () => {
 
     console.log('Turnir spreman za slanje:', konacniTurnir);
     setPorukaUspeha(`Uspešno ste kreirali turnir: "${forma.naziv}"!`);
-    
+
     setForma({
       naziv: '',
       sport: 'Fudbal',
@@ -105,47 +105,164 @@ export const KreirajTurnir: React.FC = () => {
     });
   };
 
+
+  //css
+
+  const stilSekcije: React.CSSProperties = {
+    fontSize: '18px',
+    fontWeight: '700',
+    color: '#1e293b',
+    borderBottom: '1px solid #f1f5f9',
+    paddingBottom: '8px',
+    marginTop: '30px',
+    marginBottom: '20px'
+
+  };
+  const stilLabele: React.CSSProperties = {
+    display: 'block',
+    marginBottom: '6px',
+    fontWeight: '600',
+    fontSize: '14px',
+    color: '#475569'
+  };
+
+  const stilInputa: React.CSSProperties = {
+    width: '100%',
+    padding: '10px 14px',
+    border: '1px solid #cbd5e1',
+    borderRadius: '8px',
+    fontSize: '14px',
+    backgroundColor: '#fff',
+    outline: 'none',
+    color: '#1e293b',
+    boxSizing: 'border-box'
+  };
+
+
+
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px', border: '1px solid #ddd', borderRadius: '8px', backgroundColor: '#f9f9f9' }}>
-      <h2>Kreiraj Novi Turnir</h2>
-      
-      {porukaUspeha && <div style={{ padding: '10px', backgroundColor: '#d4edda', color: '#155724', borderRadius: '4px', marginBottom: '15px' }}>{porukaUspeha}</div>}
+    <div style={{ backgroundColor: '#f8fafc', padding: '40px 20px', minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
 
-      <form onSubmit={handleSubmit}>
-        <PoljeZaUnos labela="Naziv turnira" tip="text" vrednost={forma.naziv} promena={(e) => handleInputChange('naziv', e.target.value)} obavezno />
-        
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Izaberi sport</label>
-          <select value={forma.sport} onChange={(e) => handleInputChange('sport', e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc' }}>
-            <option value="Fudbal">Fudbal</option>
-            <option value="Košarka">Košarka</option>
-            <option value="Tenis">Tenis</option>
-          </select>
+      {/* Link Nazad */}
+      <div style={{ maxWidth: '800px', margin: '0 auto 15px auto' }}>
+        <a href="/turniri" style={{ color: '#2563eb', textDecoration: 'none', fontSize: '14px', fontWeight: '500', display: 'inline-flex', alignItems: 'center', gap: '5px' }}>
+          ← Nazad na listu turnira
+        </a>
+      </div>
+
+      {/* Glavna kartica forme */}
+      <div style={{ maxWidth: '800px', margin: '0 auto', padding: '40px', borderRadius: '16px', backgroundColor: '#ffffff', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
+
+        {/* Naslovna sekcija sa ikonom */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '35px' }}>
+          <div style={{ width: '48px', height: '48px', backgroundColor: '#eff6ff', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#2563eb', fontSize: '24px' }}>
+            🏆
+          </div>
+          <div>
+            <h2 style={{ margin: 0, fontSize: '24px', fontWeight: '700', color: '#0f172a' }}>Kreiraj novi turnir</h2>
+            <p style={{ margin: '4px 0 0 0', fontSize: '14px', color: '#64748b' }}>Popunite informacije o vašem turniru</p>
+          </div>
         </div>
 
-        <PoljeZaUnos labela="Lokacija" tip="text" vrednost={forma.lokacija} promena={(e) => handleInputChange('lokacija', e.target.value)} obavezno />
-        
-        <PoljeZaUnos labela="Datum početka" tip="date" vrednost={forma.datumPocetka} promena={(e) => handleInputChange('datumPocetka', e.target.value)} obavezno />
-        <PoljeZaUnos labela="Datum završetka" tip="date" vrednost={forma.datumZavrsetka} promena={(e) => handleInputChange('datumZavrsetka', e.target.value)} obavezno />
-        
-        {greskaDatuma && <p style={{ color: 'red', fontSize: '14px', marginTop: '-10px', marginBottom: '15px' }}>{greskaDatuma}</p>}
+        {porukaUspeha && <div style={{ padding: '12px', backgroundColor: '#dcfce7', color: '#15803d', borderRadius: '8px', marginBottom: '20px', fontSize: '14px', fontWeight: '500' }}>{porukaUspeha}</div>}
 
-        <PoljeZaUnos labela="Kotizacija (RSD)" tip="number" vrednost={forma.kotizacija} promena={(e) => handleInputChange('kotizacija', Number(e.target.value))} obavezno />
-        
-        <div style={{ padding: '10px', backgroundColor: '#ecc', borderRadius: '4px', marginBottom: '15px', fontSize: '14px' }}>
-          <strong>Ukupno slobodnih mesta za timove:</strong> {menadzer.slobodnaMesta()} <br />
-          <strong>Automatski predložen nagradni fond (80%):</strong> {forma.nagradniFond.toLocaleString('sr-RS')} RSD
-        </div>
+        <form onSubmit={handleSubmit}>
 
-        <PoljeZaUnos labela="URL Slike" tip="text" vrednost={forma.urlSlike} promena={(e) => handleInputChange('urlSlike', e.target.value)} />
+          {/* SEKCIJA 1: Osnovne informacije */}
+          <div style={stilSekcije}>Osnovne informacije</div>
 
-        <div style={{ marginBottom: '15px' }}>
-          <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>Opis turnira</label>
-          <textarea value={forma.opis} onChange={(e) => handleInputChange('opis', e.target.value)} style={{ width: '100%', padding: '8px', borderRadius: '4px', border: '1px solid #ccc', height: '80px' }} />
-        </div>
+          <div style={{ marginBottom: '20px' }}>
+            <PoljeZaUnos labela="Naziv turnira *" tip="text" vrednost={forma.naziv} promena={(e) => handleInputChange('naziv', e.target.value)} obavezno />
+          </div>
 
-        <Dugme labela="Objavi Turnir" tip="submit" vrsta="primarno" />
-      </form>
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ flex: 1 }}>
+              <label style={stilLabele}>Sport *</label>
+              <select value={forma.sport} onChange={(e) => handleInputChange('sport', e.target.value)} style={stilInputa}>
+                <option value="Fudbal">Fudbal</option>
+                <option value="Košarka">Košarka</option>
+                <option value="Tenis">Tenis</option>
+              </select>
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={stilLabele}>Format takmičenja *</label>
+              <input type="text" value={forma.format} readOnly style={{ ...stilInputa, backgroundColor: '#f1f5f9', cursor: 'not-allowed' }} />
+            </div>
+          </div>
+
+          <div style={{ marginBottom: '20px' }}>
+            <PoljeZaUnos labela="Lokacija *" tip="text" vrednost={forma.lokacija} promena={(e) => handleInputChange('lokacija', e.target.value)} obavezno />
+          </div>
+
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ flex: 1 }}>
+              <PoljeZaUnos labela="Datum početka *" tip="date" vrednost={forma.datumPocetka} promena={(e) => handleInputChange('datumPocetka', e.target.value)} obavezno />
+            </div>
+            <div style={{ flex: 1 }}>
+              <PoljeZaUnos labela="Datum završetka *" tip="date" vrednost={forma.datumZavrsetka} promena={(e) => handleInputChange('datumZavrsetka', e.target.value)} obavezno />
+            </div>
+          </div>
+
+          {greskaDatuma && <p style={{ color: '#ef4444', fontSize: '13px', marginTop: '-10px', marginBottom: '20px', fontWeight: '500' }}>{greskaDatuma}</p>}
+
+
+          {/* SEKCIJA 2: Detalji učešća */}
+          <div style={stilSekcije}>Detalji učešća</div>
+
+          <div style={{ display: 'flex', gap: '20px', marginBottom: '20px' }}>
+            <div style={{ flex: 1 }}>
+              <label style={stilLabele}>Maksimalno timova *</label>
+              <input type="number" value={forma.maxTimova} readOnly style={{ ...stilInputa, backgroundColor: '#f1f5f9' }} />
+            </div>
+            <div style={{ flex: 1 }}>
+              <PoljeZaUnos labela="Kotizacija (RSD) *" tip="number" vrednost={forma.kotizacija} promena={(e) => handleInputChange('kotizacija', Number(e.target.value))} obavezno />
+            </div>
+            <div style={{ flex: 1 }}>
+              <label style={stilLabele}>Nagradni fond (RSD)</label>
+              <input type="text" value={`${forma.nagradniFond.toLocaleString('sr-RS')} RSD`} readOnly style={{ ...stilInputa, backgroundColor: '#f1f5f9', fontWeight: '600' }} />
+            </div>
+          </div>
+
+          <div style={{ padding: '10px 14px', backgroundColor: '#f8fafc', border: '1px dashed #cbd5e1', borderRadius: '8px', marginBottom: '20px', fontSize: '13px', color: '#64748b' }}>
+            Preostalo slobodnih mesta na osnovu trenutnih prijava: <strong>{menadzer.slobodnaMesta()}</strong>
+          </div>
+
+
+          {/* SEKCIJA 3: Dodatne informacije */}
+          <div style={stilSekcije}>Dodatne informacije</div>
+
+          <div style={{ marginBottom: '20px' }}>
+            <label style={stilLabele}>Opis turnira *</label>
+            <textarea placeholder="Opišite turnir, ciljnu grupu, nivo takmičenja i pravila..." value={forma.opis} onChange={(e) => handleInputChange('opis', e.target.value)} style={{ ...stilInputa, height: '140px', resize: 'vertical' }} required />
+          </div>
+
+          <div style={{ marginBottom: '20px' }}>
+            <PoljeZaUnos labela="URL Slike" tip="text" vrednost={forma.urlSlike} promena={(e) => handleInputChange('urlSlike', e.target.value)} />
+          </div>
+
+          {/* Akciona dugmad - Centrirana na dnu, jedno pored drugog, rastegnuta na 50/50 prostora */}
+          <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '40px', width: '100%' }}>
+            <div style={{ flex: 1 }}>
+              <Dugme
+                labela="Otkaži"
+                tip="button"
+                vrsta="secondary"
+                akcija={() => window.history.back()}
+                stil={{ width: '100%', padding: '12px 20px', fontSize: '15px', fontWeight: '600' }}
+              />
+            </div>
+            <div style={{ flex: 1 }}>
+              <Dugme
+                labela="🏆 Objavi turnir"
+                tip="submit"
+                vrsta="primarno"
+                stil={{ width: '100%', padding: '12px 20px', fontSize: '15px', fontWeight: '700' }}
+              />
+            </div>
+          </div>
+
+        </form>
+      </div>
     </div>
   );
 };
