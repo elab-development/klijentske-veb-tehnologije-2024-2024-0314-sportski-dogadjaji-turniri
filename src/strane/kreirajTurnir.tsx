@@ -240,23 +240,21 @@ export const KreirajTurnir: React.FC = () => {
             <PoljeZaUnos labela="URL Slike" tip="text" vrednost={forma.urlSlike} promena={(e) => handleInputChange('urlSlike', e.target.value)} />
           </div>
 
-          {/* Akciona dugmad - Centrirana na dnu, jedno pored drugog, rastegnuta na 50/50 prostora */}
-          <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginTop: '40px', width: '100%' }}>
+          {/* Akciona dugmad - Raspoređena 50/50, prateći tačan dizajn i zaobljenost */}
+          <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '40px', width: '100%' }}>
+            <div style={{ flex: 1 }}>
+              <Dugme
+                labela="🏆 Objavi turnir"
+                tip="submit"
+                vrsta="primarno"
+              />
+            </div>
             <div style={{ flex: 1 }}>
               <Dugme
                 labela="Otkaži"
                 tip="button"
                 vrsta="secondary"
                 akcija={() => window.history.back()}
-                stil={{ width: '100%', padding: '12px 20px', fontSize: '15px', fontWeight: '600' }}
-              />
-            </div>
-            <div style={{ flex: 1 }}>
-              <Dugme
-                labela="🏆 Objavi turnir"
-                tip="submit"
-                vrsta="primarno"
-                stil={{ width: '100%', padding: '12px 20px', fontSize: '15px', fontWeight: '700' }}
               />
             </div>
           </div>
