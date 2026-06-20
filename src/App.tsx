@@ -4,6 +4,7 @@ import { Pocetna } from './strane/pocetna';
 import { Turniri } from './strane/turniri';
 import { KreirajTurnir } from './strane/kreirajTurnir';
 import { Profil } from './strane/profil';
+import { TurnirDetalji } from './strane/turnirDetalji';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/turniri" element={<Turniri />} />
           <Route path="/kreiraj-turnir" element={<KreirajTurnir />} />
           <Route path="/profil" element={<Profil />} />
+          <Route path="/turnir/:id" element={<TurnirDetalji />} />
         </Routes>
       </main>
     </Router>
