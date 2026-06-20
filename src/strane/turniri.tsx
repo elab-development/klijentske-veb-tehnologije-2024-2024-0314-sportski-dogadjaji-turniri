@@ -8,6 +8,7 @@ export const Turniri: React.FC = () => {
     const [pretraga, setPretraga] = useState<string>('');
     const [izabraniSport, setIzabraniSport] = useState<string>('Svi');
     const [statusFilter, setStatusFilter] = useState<string>('Svi');
+
     const prikazaniTurniri = turniri.filter((turnir) => {
         const poklapaNaziv = turnir.naziv.toLowerCase().includes(pretraga.toLowerCase());
         const poklapaSport = izabraniSport === 'Svi' || turnir.sport === izabraniSport;
@@ -16,6 +17,12 @@ export const Turniri: React.FC = () => {
         return poklapaNaziv && poklapaSport && poklapaStatus;
     });
 
+
+    const [trenutnaStranica, setTrenutnaStranica] = useState<number>(1);
+    const turniraPoStranici = 6;
+    const poslednjiIndeks = trenutnaStranica * turniraPoStranici;
+    const prviIndeks = poslednjiIndeks - turniraPoStranici;
+    const trenutniTurniri = prikazaniTurniri.slice(prviIndeks, poslednjiIndeks);
 
     useEffect(() => {
         const testPodaci: TurnirInterface[] = [
@@ -74,10 +81,11 @@ export const Turniri: React.FC = () => {
         return <div style={{ padding: '20px', textAlign: 'center' }}>Učitavanje...</div>;
     }
 
+    const brojStranica = Math.ceil(prikazaniTurniri.length / turniraPoStranici);
     return (
         // Glavni kontejner: svetla pozadina i puno prostora oko sadržaja
-        <div style={{ padding: '40px 20px', backgroundColor: '#ffffff', minHeight: '100vh', width: '100%', fontFamily: 'sans-serif', boxSizing: 'border-box' }}>
-            <div style={{ width: '100%' }}>
+        <div style={{ padding: '40px 20px', backgroundColor: '#ffffff', minHeight: '100vh', width: '100%', margin: '0 auto', fontFamily: 'sans-serif', boxSizing: 'border-box' }}>
+            <div style={{ width: '100%', maxWidth: '1200px', margin: '0 auto' }}>
 
                 {/* Naslov: postavlja osnovni tekst i marginu za bolju čitljivost */}
                 <h1 style={{ fontSize: '32px', fontWeight: '800', color: '#0f172a', marginBottom: '4px' }}>Svi turniri</h1>
@@ -111,9 +119,12 @@ export const Turniri: React.FC = () => {
                 </div>
 
                 {/* Grid Mreža*/}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '30px' }}>
-                    {prikazaniTurniri.map((turnir) => {
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '30px' }}>
+                    {trenutniTurniri.map((turnir) => {
                         const menadzer = new TurnirMenadzer(turnir);
+
+
+
 
                         return (
                             <div key={turnir.id} style={{
@@ -128,7 +139,6 @@ export const Turniri: React.FC = () => {
                                         {menadzer.sport()}
                                     </span>
                                 </div>
-
                                 {/* Sadržaj kartice: flexGrow: 1 gura sve elemente na ravnomernu raspodelu unutar kartice */}
                                 <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
                                     <div>
@@ -138,6 +148,8 @@ export const Turniri: React.FC = () => {
                                             <p style={{ margin: 0 }}>👥 {turnir.prijavljenoTimova}/{menadzer.maxTimova()} timova</p>
                                         </div>
                                     </div>
+
+
 
                                     {/* Status i strelica: justifyContent: space-between razdvaja status na levo, a strelicu na desno */}
                                     <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -150,6 +162,22 @@ export const Turniri: React.FC = () => {
                             </div>
                         );
                     })}
+                </div>
+                <div style={{ display: 'flex', justifyContent: 'center', gap: '10px', marginTop: '40px' }}>
+                    <button
+                        disabled={trenutnaStranica === 1}
+                        onClick={() => setTrenutnaStranica(prev => prev - 1)}
+                        style={{ padding: '8px 16px', cursor: 'pointer' }}
+                    >
+                        Nazad
+                    </button>
+                    <span>Strana {trenutnaStranica} od {brojStranica || 1}</span>
+                    <button
+                        disabled={trenutnaStranica >= brojStranica}
+                        onClick={() => setTrenutnaStranica(prev => prev + 1)}
+                        style={{ padding: '8px 16px', cursor: 'pointer' }}>
+                        Napred
+                    </button>
                 </div>
             </div>
         </div>

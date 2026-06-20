@@ -151,7 +151,7 @@ export const KreirajTurnir: React.FC = () => {
 
 
   return (
-    <div style={{ backgroundColor: '#f8fafc', padding: '40px 20px', minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
+    <div style={{ backgroundColor: '#ffffff', padding: '40px 20px', minHeight: '100vh', fontFamily: 'system-ui, sans-serif' }}>
 
       {/* Link Nazad */}
       <div style={{ maxWidth: '800px', margin: '0 auto 15px auto' }}>
