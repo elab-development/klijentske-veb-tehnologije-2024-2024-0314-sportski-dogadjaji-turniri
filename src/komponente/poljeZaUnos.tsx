@@ -40,8 +40,8 @@ export const PoljeZaUnos: React.FC<PoljeZaUnosProps> = ({
                     borderRadius: '8px',
                     border: '1px solid #cbd5e1',
                     fontSize: '14px',
-                    backgroundColor: '#ffffff', // Forsira čistu belu pozadinu
-                    color: '#0f172a',           // Tamna boja teksta za maksimalan kontrast
+                    backgroundColor: '#ffffff',
+                    color: '#0f172a',
                     outline: 'none',
                     boxSizing: 'border-box'
                 }}

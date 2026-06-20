@@ -18,16 +18,16 @@ export const TurnirDetalji: React.FC = () => {
     const isTenis = pronadjeni ? pronadjeni.sport === 'Tenis' : mod === 0;
     const isKosarka = pronadjeni ? pronadjeni.sport === 'Košarka' : mod === 2;
 
-    const naziv = pronadjeni ? pronadjeni.naziv : isTenis 
+    const naziv = pronadjeni ? pronadjeni.naziv : isTenis
         ? `Teniski Open Šampionat #${idNum}`
-        : isKosarka 
-        ? `Košarkaška Liga - Prolećna Sezona #${idNum}`
-        : `Letnji Fudbalski Turnir 2026 #${idNum}`;
+        : isKosarka
+            ? `Košarkaška Liga - Prolećna Sezona #${idNum}`
+            : `Letnji Fudbalski Turnir 2026 #${idNum}`;
 
     const sport = pronadjeni ? pronadjeni.sport : isTenis ? 'Tenis' : isKosarka ? 'Košarka' : 'Fudbal';
     const status = pronadjeni ? pronadjeni.status : isTenis ? 'Popunjeno' : 'Otvorene prijave';
     const lokacija = pronadjeni ? pronadjeni.lokacija : isTenis ? 'Niš, Srbija' : isKosarka ? 'Novi Sad, Srbija' : 'Stadion FK Partizan, Beograd, Srbija';
-    
+
     const formatujDatum = (d: Date | string | number | null | undefined) => {
         if (!d) return '';
         const dateObj = new Date(d);
@@ -37,18 +37,18 @@ export const TurnirDetalji: React.FC = () => {
 
     const datumPocetka = pronadjeni ? formatujDatum(pronadjeni.datumPocetka) : isTenis ? '10 Jul 2026' : isKosarka ? '01 Jun 2026' : '15 Jun 2026';
     const datumZavrsetka = pronadjeni ? formatujDatum(pronadjeni.datumZavrsetka) : isTenis ? '15 Jul 2026' : isKosarka ? '30 Jun 2026' : '20 Jun 2026';
-    const rokPrijava = pronadjeni ? formatujDatum(new Date(new Date(pronadjeni.datumPocetka).getTime() - 5*24*60*60*1000)) : isTenis ? '05 Jul 2026' : isKosarka ? '25 Maj 2026' : '10 Jun 2026';
+    const rokPrijava = pronadjeni ? formatujDatum(new Date(new Date(pronadjeni.datumPocetka).getTime() - 5 * 24 * 60 * 60 * 1000)) : isTenis ? '05 Jul 2026' : isKosarka ? '25 Maj 2026' : '10 Jun 2026';
     const maxTimova = pronadjeni ? pronadjeni.maxTimova : isTenis ? 32 : isKosarka ? 12 : 16;
     const prijavljenoTimova = pronadjeni ? pronadjeni.prijavljenoTimova : isTenis ? 32 : isKosarka ? 8 : 16;
     const kotizacija = pronadjeni ? pronadjeni.kotizacija : isTenis ? 3000 : isKosarka ? 4000 : 5000;
     const nagradniFond = pronadjeni ? pronadjeni.nagradniFond : isTenis ? 60000 : isKosarka ? 45000 : 50000;
     const format = pronadjeni ? pronadjeni.format : isTenis ? 'Kup sistem na ispadanje' : isKosarka ? 'Ligaški sistem' : 'Grupna faza + Nokaut sistem';
-    
-    const slikaPozadine = pronadjeni ? pronadjeni.urlSlike : isTenis 
-        ? 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=1200'
-        : isKosarka 
-        ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200'
-        : 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200';
+
+    const slikaPozadine = pronadjeni ? pronadjeni.urlSlike : isTenis
+        ? 'https://plus.unsplash.com/premium_photo-1666913667082-c1fecc45275d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGVuaXN8ZW58MHx8MHx8fDA%3D'
+        : isKosarka
+            ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200'
+            : 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200';
 
     const pravila = pronadjeni && pronadjeni.opis ? [pronadjeni.opis] : isTenis ? [
         'Igra se na dva dobijena seta',
@@ -71,22 +71,22 @@ export const TurnirDetalji: React.FC = () => {
 
     const timovi = isTenis
         ? ['Novak Đ.', 'Janko T.', 'Viktor T.', 'Dušan L.', 'Laslo Đ.', 'Filip K.']
-        : isKosarka 
-        ? ['Novi Sad 3x3', 'Liman 3x3', 'Vojvodina', 'Dunavske zvezde', 'Podbara', 'Detelinara', 'Železničar', 'Telep']
-        : ['FC Vračar', 'Dorćol United', 'Novi Beograd FC', 'Zvezdara Stars', 'Palilula FC', 'Savski Venac'];
+        : isKosarka
+            ? ['Novi Sad 3x3', 'Liman 3x3', 'Vojvodina', 'Dunavske zvezde', 'Podbara', 'Detelinara', 'Železničar', 'Telep']
+            : ['FC Vračar', 'Dorćol United', 'Novi Beograd FC', 'Zvezdara Stars', 'Palilula FC', 'Savski Venac'];
 
     return (
         <div style={{ width: '100%', backgroundColor: '#f8fafc', minHeight: '100vh', fontFamily: 'sans-serif', boxSizing: 'border-box' }}>
-            
-            <div style={{ 
-                position: 'relative', 
-                height: '320px', 
-                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${slikaPozadine})`, 
-                backgroundSize: 'cover', 
-                backgroundPosition: 'center', 
-                display: 'flex', 
-                flexDirection: 'column', 
-                justifyContent: 'center', 
+
+            <div style={{
+                position: 'relative',
+                height: '320px',
+                backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7)), url(${slikaPozadine})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
                 padding: '0 40px',
                 color: '#ffffff'
             }}>
@@ -94,7 +94,7 @@ export const TurnirDetalji: React.FC = () => {
                     <Link to="/turniri" style={{ color: '#ffffff', textDecoration: 'none', fontSize: '14px', fontWeight: '600', display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '24px' }}>
                         ← Nazad na listu
                     </Link>
-                    
+
                     <div style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
                         <span style={{ backgroundColor: '#2563eb', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
                             {sport}
@@ -105,7 +105,7 @@ export const TurnirDetalji: React.FC = () => {
                     </div>
 
                     <h1 style={{ fontSize: '36px', fontWeight: '800', margin: '0 0 16px 0', color: '#ffffff', textAlign: 'left' }}>{naziv}</h1>
-                    
+
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', fontSize: '14px', opacity: 0.9 }}>
                         <span>📍 {lokacija}</span>
                         <span>📅 {datumPocetka} - {datumZavrsetka}</span>
@@ -114,9 +114,9 @@ export const TurnirDetalji: React.FC = () => {
             </div>
 
             <div style={{ maxWidth: '1200px', margin: '40px auto', padding: '0 20px', display: 'flex', gap: '30px', flexWrap: 'wrap' }}>
-                
+
                 <div style={{ flex: 2, minWidth: '320px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
-                    
+
                     <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '30px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
                         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: '16px' }}>
                             <div style={{ padding: '16px', backgroundColor: '#eff6ff', borderRadius: '12px', display: 'flex', gap: '12px', alignItems: 'center' }}>
@@ -178,7 +178,7 @@ export const TurnirDetalji: React.FC = () => {
                 </div>
 
                 <div style={{ flex: 1, minWidth: '300px', display: 'flex', flexDirection: 'column', gap: '30px' }}>
-                    
+
                     <div style={{ backgroundColor: '#ffffff', borderRadius: '16px', padding: '30px', border: '1px solid #e2e8f0', boxShadow: '0 1px 3px rgba(0,0,0,0.05)' }}>
                         <h3 style={{ margin: '0 0 20px 0', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Brza prijava</h3>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginBottom: '24px', fontSize: '14px' }}>
@@ -198,17 +198,17 @@ export const TurnirDetalji: React.FC = () => {
                             </div>
                         </div>
 
-                        <button 
+                        <button
                             disabled={status !== 'Otvorene prijave'}
-                            style={{ 
-                                width: '100%', 
-                                padding: '12px', 
-                                backgroundColor: status === 'Otvorene prijave' ? '#2563eb' : '#cbd5e1', 
-                                color: '#ffffff', 
-                                border: 'none', 
-                                borderRadius: '8px', 
-                                fontSize: '15px', 
-                                fontWeight: '700', 
+                            style={{
+                                width: '100%',
+                                padding: '12px',
+                                backgroundColor: status === 'Otvorene prijave' ? '#2563eb' : '#cbd5e1',
+                                color: '#ffffff',
+                                border: 'none',
+                                borderRadius: '8px',
+                                fontSize: '15px',
+                                fontWeight: '700',
                                 cursor: status === 'Otvorene prijave' ? 'pointer' : 'not-allowed',
                                 display: 'flex',
                                 justifyContent: 'center',
@@ -219,7 +219,7 @@ export const TurnirDetalji: React.FC = () => {
                         >
                             👤 Prijavi tim
                         </button>
-                        
+
                         <button style={{ width: '100%', padding: '12px', backgroundColor: '#f1f5f9', color: '#475569', border: 'none', borderRadius: '8px', fontSize: '15px', fontWeight: '700', cursor: 'pointer', display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
                             🔗 Podeli
                         </button>

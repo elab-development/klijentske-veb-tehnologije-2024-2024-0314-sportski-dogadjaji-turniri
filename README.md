@@ -1,73 +1,38 @@
-# React + TypeScript + Vite
+SportEvents
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Ovaj projekat predstavlja veb aplikaciju za upravljanje i pregled sportskih turnira. Aplikacija omogućava korisnicima da pretražuju turnire, filtriraju ih prema sportu i statusu, kao i da pregledaju detaljne informacije o svakom događaju.
 
-Currently, two official plugins are available:
+Funkcionalnosti
+Pregled svih turnira: Korisnički interfejs sa grid prikazom svih dostupnih turnira.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Napredni filteri: Pretraga po nazivu, filtriranje po sportu (Fudbal, Košarka) i po statusu (Otvorene/Zatvorene prijave).
 
-## React Compiler
+Paginacija: Podrška za pregled većeg broja turnira podeljenih na stranice.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Detaljan prikaz: Stranica sa detaljima o turniru koja uključuje pravila, listu prijavljenih timova, nagradni fond i lokaciju.
 
-## Expanding the ESLint configuration
+Korisnički profil: Upravljanje ličnim podacima, pregled istorije turnira i dostignuća.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Tehnologije
+React
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+TypeScript
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+React Router (za navigaciju)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+CSS (Inline stilovi za komponente)
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1. Kloniranje repozitorijuma
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Otvorite terminal i pokrenite komandu:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+git clone <URL_VASE_REPOZITORIJUMA>
+cd <IME_FOLDERA_PROJEKTA>
+
+2. Instalacija zavisnosti
+Uverite se da imate instaliran Node.js. Instalirajte potrebne pakete komandom:
+
+npm install
+
+3. Pokretanje razvojnog okruzenja
+npm run dev

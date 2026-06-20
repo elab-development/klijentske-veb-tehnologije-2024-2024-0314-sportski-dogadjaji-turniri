@@ -42,18 +42,18 @@ export const Profil: React.FC = () => {
           <div style={{ height: '120px', background: 'linear-gradient(to right, #1d4ed8, #3b82f6)' }}></div>
           <div style={{ padding: '20px', display: 'flex', gap: '20px', alignItems: 'center', marginTop: '-50px', flexWrap: 'wrap' }}>
             {/* Facebook-like default profile placeholder */}
-            <img 
-              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" 
-              style={{ 
-                width: '100px', 
-                height: '100px', 
-                borderRadius: '50%', 
-                border: '4px solid #ffffff', 
-                objectFit: 'cover', 
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+              style={{
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                border: '4px solid #ffffff',
+                objectFit: 'cover',
                 boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
                 backgroundColor: '#f1f5f9'
-              }} 
-              alt={imeKorisnika} 
+              }}
+              alt={imeKorisnika}
             />
             <div style={{ flex: 1, minWidth: '200px' }}>
               <h2 style={{ margin: '40px 0 5px 0', fontSize: '24px', fontWeight: '700', color: '#0f172a' }}>{imeKorisnika}</h2>
@@ -61,7 +61,7 @@ export const Profil: React.FC = () => {
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}>Podešavanja</button>
-              <button 
+              <button
                 onClick={handleOdjava}
                 style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', backgroundColor: '#fee2e2', color: '#ef4444', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
               >
@@ -71,7 +71,7 @@ export const Profil: React.FC = () => {
           </div>
         </div>
 
-        {/* Statistika */}
+
         <div style={{ display: 'flex', gap: '15px', marginBottom: '25px', flexWrap: 'wrap' }}>
           {[
             { l: 'Turniri', v: 12, i: '🏆' },
@@ -88,7 +88,7 @@ export const Profil: React.FC = () => {
           ))}
         </div>
 
-        {/* Moji turniri */}
+
         <div style={{ border: '1px solid #cbd5e1', borderRadius: '16px', padding: '20px', backgroundColor: '#ffffff', marginBottom: '25px', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.05)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px', flexWrap: 'wrap', gap: '10px' }}>
             <h3 style={{ margin: 0, fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Moji turniri</h3>
@@ -137,7 +137,7 @@ export const Profil: React.FC = () => {
           </div>
         </div>
 
-        {/* Dostignuća */}
+
         <div>
           <h3 style={{ marginBottom: '15px', fontSize: '18px', fontWeight: '700', color: '#0f172a' }}>Dostignuća</h3>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '15px' }}>

@@ -54,7 +54,7 @@ export const Turniri: React.FC = () => {
                 kotizacija: 3000,
                 nagradniFond: 60000,
                 status: 'Zatvorene prijave',
-                urlSlike: 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=500',
+                urlSlike: 'https://plus.unsplash.com/premium_photo-1666913667082-c1fecc45275d?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8dGVuaXN8ZW58MHx8MHx8fDA%3D',
                 opis: 'Godišnji teniski šampionat.'
             }
         ];
@@ -113,7 +113,7 @@ export const Turniri: React.FC = () => {
                         <option value="Tenis">Tenis</option>
                     </select>
 
-                    {/* Filter za status */}
+
                     <select
                         value={statusFilter}
                         onChange={(e) => setStatusFilter(e.target.value)}
@@ -125,7 +125,7 @@ export const Turniri: React.FC = () => {
                     </select>
                 </div>
 
-                {/* Grid Mreža*/}
+
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))', gap: '30px' }}>
                     {trenutniTurniri.map((turnir) => {
                         const menadzer = new TurnirMenadzer(turnir);
@@ -138,7 +138,7 @@ export const Turniri: React.FC = () => {
                                 backgroundColor: '#ffffff', border: '1px solid #f1f5f9', borderRadius: '16px', overflow: 'hidden',
                                 boxShadow: '0 4px 20px rgba(0,0,0,0.03)', display: 'flex', flexDirection: 'column'
                             }}>
-                                {/* Slika: position: relative omogućava da "Sport bedž" bude pozicioniran apsolutno unutar nje */}
+
                                 <div style={{ position: 'relative', width: '100%', height: '200px' }}>
                                     <img src={menadzer.urlSlike()} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                                     <span style={{ position: 'absolute', bottom: '12px', left: '12px', backgroundColor: '#2563eb', color: '#ffffff', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>

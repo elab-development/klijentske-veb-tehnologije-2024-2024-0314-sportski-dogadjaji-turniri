@@ -12,11 +12,11 @@ export const Prijava: React.FC = () => {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        
-        // Preuzimanje svih registrovanih korisnika
+
+
         const sviKorisnici = JSON.parse(localStorage.getItem('korisnici') || '[]');
-        
-        // Provera da li se podaci podudaraju
+
+
         const pronadjeniKorisnik = sviKorisnici.find(
             (k: any) => k.email === email && k.lozinka === lozinka
         );
@@ -26,9 +26,9 @@ export const Prijava: React.FC = () => {
             return;
         }
 
-        // Čuvanje ulogovanog korisnika u sesiju (localStorage)
+
         localStorage.setItem('ulogovaniKorisnik', JSON.stringify(pronadjeniKorisnik));
-        
+
         setGreska('');
         alert('Uspešno ste se prijavili!');
         navigate('/profil');
@@ -47,7 +47,7 @@ export const Prijava: React.FC = () => {
             alignItems: 'center'
         }}>
 
-            {/* Glavna kartica za prijavu */}
+
             <div style={{
                 width: '100%',
                 maxWidth: '450px',
@@ -60,7 +60,7 @@ export const Prijava: React.FC = () => {
                 boxSizing: 'border-box'
             }}>
 
-                {/* Okrugli bedž sa trofejom */}
+
                 <div style={{
                     width: '64px',
                     height: '64px',
@@ -76,7 +76,7 @@ export const Prijava: React.FC = () => {
                     🏆
                 </div>
 
-                {/* Naslovna sekcija */}
+
                 <h2 style={{ margin: '0 0 8px 0', fontSize: '26px', fontWeight: '700', color: '#0f172a' }}>
                     Dobrodošli nazad
                 </h2>
@@ -84,7 +84,7 @@ export const Prijava: React.FC = () => {
                     Prijavite se na svoj nalog
                 </p>
 
-                {/* Forma */}
+
                 <form onSubmit={handleSubmit} style={{ textAlign: 'left' }}>
 
                     <PoljeZaUnos
@@ -105,7 +105,7 @@ export const Prijava: React.FC = () => {
                         obavezno
                     />
 
-                    {/* Zapamti me i Zaboravljena lozinka */}
+
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
@@ -133,7 +133,7 @@ export const Prijava: React.FC = () => {
                         </p>
                     )}
 
-                    {/* Dugme za prijavu */}
+
                     <Dugme
                         labela="Prijavite se"
                         tip="submit"
@@ -143,7 +143,7 @@ export const Prijava: React.FC = () => {
 
                 </form>
 
-                {/* Razdelnik */}
+
                 <div style={{
                     display: 'flex',
                     alignItems: 'center',
@@ -156,7 +156,7 @@ export const Prijava: React.FC = () => {
                     <div style={{ flex: 1, height: '1px', backgroundColor: '#e2e8f0' }}></div>
                 </div>
 
-                {/* Link za registraciju */}
+
                 <p style={{ margin: 0, fontSize: '13px', color: '#64748b' }}>
                     Nemate nalog?{' '}
                     <Link to="/registracija" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: '600' }}>

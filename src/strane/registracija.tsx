@@ -17,21 +17,21 @@ export const Registracija: React.FC = () => {
       setGreska('Lozinke se ne podudaraju!');
       return;
     }
-    
-    // Provera da li korisnik već postoji
+
+
     const sviKorisnici = JSON.parse(localStorage.getItem('korisnici') || '[]');
     const korisnikPostoji = sviKorisnici.some((k: any) => k.email === email);
-    
+
     if (korisnikPostoji) {
       setGreska('Korisnik sa ovim email-om već postoji!');
       return;
     }
 
-    // Čuvanje novog korisnika u localStorage
+
     const noviKorisnik = { ime, email, lozinka };
     sviKorisnici.push(noviKorisnik);
     localStorage.setItem('korisnici', JSON.stringify(sviKorisnici));
-    
+
     setGreska('');
     alert('Registracija uspešna! Preusmeravamo vas na prijavu.');
     navigate('/prijava');
@@ -50,7 +50,7 @@ export const Registracija: React.FC = () => {
       alignItems: 'center'
     }}>
 
-      {/* Glavna kartica za registraciju */}
+
       <div style={{
         width: '100%',
         maxWidth: '450px',
@@ -63,7 +63,7 @@ export const Registracija: React.FC = () => {
         boxSizing: 'border-box'
       }}>
 
-        {/* Okrugli bedž sa trofejom */}
+
         <div style={{
           width: '64px',
           height: '64px',
@@ -79,7 +79,7 @@ export const Registracija: React.FC = () => {
           🏆
         </div>
 
-        {/* Naslovna sekcija */}
+
         <h2 style={{ margin: '0 0 8px 0', fontSize: '26px', fontWeight: '700', color: '#0f172a' }}>
           Kreirajte nalog
         </h2>
@@ -87,7 +87,7 @@ export const Registracija: React.FC = () => {
           Pridružite se našoj sportskoj zajednici
         </p>
 
-        {/* Forma */}
+
         <form onSubmit={handleSubmit} style={{ textAlign: 'left' }}>
 
           <PoljeZaUnos
@@ -132,7 +132,7 @@ export const Registracija: React.FC = () => {
             </p>
           )}
 
-          {/* Dugme za registraciju */}
+
           <Dugme
             labela="Registrujte se"
             tip="submit"
@@ -142,7 +142,7 @@ export const Registracija: React.FC = () => {
 
         </form>
 
-        {/* Već imate nalog? */}
+
         <p style={{ margin: '25px 0 0 0', fontSize: '13px', color: '#64748b' }}>
           Već imate nalog?{' '}
           <Link to="/prijava" style={{ color: '#2563eb', textDecoration: 'none', fontWeight: '600' }}>
