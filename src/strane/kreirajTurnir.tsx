@@ -30,7 +30,17 @@ export const KreirajTurnir: React.FC = () => {
 
   const handleInputChange = (polje: keyof typeof forma, vrednost: string | number) => {
     setForma(f => {
-      const novoStanje = { ...f, [polje]: vrednost };
+      let konacnaVrednost = vrednost;
+
+      if (polje === 'kotizacija') {
+        konacnaVrednost = vrednost === '' ? '' : Number(vrednost);
+      }
+
+
+
+
+
+      const novoStanje = { ...f, [polje]: konacnaVrednost };
 
       if (polje === 'sport') {
         if (vrednost === 'Fudbal') {
@@ -240,11 +250,11 @@ export const KreirajTurnir: React.FC = () => {
             <PoljeZaUnos labela="URL Slike" tip="text" vrednost={forma.urlSlike} promena={(e) => handleInputChange('urlSlike', e.target.value)} />
           </div>
 
-          {/* Akciona dugmad - Raspoređena 50/50, prateći tačan dizajn i zaobljenost */}
+
           <div style={{ display: 'flex', gap: '16px', justifyContent: 'center', marginTop: '40px', width: '100%' }}>
             <div style={{ flex: 1 }}>
               <Dugme
-                labela="🏆 Objavi turnir"
+                labela="🏆Objavi turnir"
                 tip="submit"
                 vrsta="primarno"
               />

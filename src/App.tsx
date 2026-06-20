@@ -8,8 +8,8 @@ import { Profil } from './strane/profil';
 function App() {
   return (
     <Router>
-      <Navigacija /> 
-      <main style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
+      <Navigacija />
+      <main>
         <Routes>
           <Route path="/" element={<Navigate to="/pocetna" />} />
           <Route path="/pocetna" element={<Pocetna />} />
