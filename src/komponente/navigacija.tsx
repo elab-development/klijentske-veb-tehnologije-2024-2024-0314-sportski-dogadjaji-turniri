@@ -22,9 +22,24 @@ export const Navigacija: React.FC = () => {
         <Link to="/turniri" style={{ color: '#ffffff', textDecoration: 'none' }}>🏆 Turniri</Link>
         <Link to="/kreiraj-turnir" style={{ color: '#ffffff', textDecoration: 'none' }}>➕ Kreiraj</Link>
         <Link to="/profil" style={{ color: '#ffffff', textDecoration: 'none' }}>👤 Profil</Link>
+
       </div>
-      <div className="autentifikacija">
-        <span style={{ justifySelf: 'end', cursor: 'pointer' }}>Prijava</span>
+      <div className="autentifikacija" style={{ justifySelf: 'end' }}>
+        <Link to="/prijava" style={{
+          color: '#ffffff',
+          backgroundColor: '#2563eb',
+          padding: '8px 16px',
+          borderRadius: '8px',
+          textDecoration: 'none',
+          fontWeight: '600',
+          fontSize: '14px',
+          display: 'inline-flex',
+          alignItems: 'center',
+          gap: '6px',
+          cursor: 'pointer'
+        }}>
+          ➡️ Prijava
+        </Link>
       </div>
     </nav>
   );

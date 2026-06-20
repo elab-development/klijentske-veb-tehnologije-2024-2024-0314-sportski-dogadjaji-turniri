@@ -1,7 +1,22 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export const Profil: React.FC = () => {
   const [filter, setFilter] = useState<'Svi' | 'Predstojeći' | 'Završeni'>('Svi');
+  const navigate = useNavigate();
+
+  // Učitavanje ulogovanog korisnika iz localStorage-a
+  const ulogovaniRaw = localStorage.getItem('ulogovaniKorisnik');
+  const ulogovaniKorisnik = ulogovaniRaw ? JSON.parse(ulogovaniRaw) : null;
+
+  const imeKorisnika = ulogovaniKorisnik ? ulogovaniKorisnik.ime : 'Marko Marković';
+  const emailKorisnika = ulogovaniKorisnik ? ulogovaniKorisnik.email : 'marko.markovic@email.com';
+
+  const handleOdjava = () => {
+    localStorage.removeItem('ulogovaniKorisnik');
+    alert('Uspešno ste se odjavili!');
+    navigate('/prijava');
+  };
 
   const turniri = [
     { id: 1, naziv: "Letnji Fudbalski Turnir 2026", sport: "Fudbal", datum: "15-20 Jun 2026", status: "Predstojeće" },
@@ -38,15 +53,20 @@ export const Profil: React.FC = () => {
                 boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
                 backgroundColor: '#f1f5f9'
               }} 
-              alt="Marko Marković" 
+              alt={imeKorisnika} 
             />
             <div style={{ flex: 1, minWidth: '200px' }}>
-              <h2 style={{ margin: '40px 0 5px 0', fontSize: '24px', fontWeight: '700', color: '#0f172a' }}>Marko Marković</h2>
-              <p style={{ color: '#475569', fontSize: '14px', margin: 0 }}>📧 marko.markovic@email.com | 📍 Beograd | 📅 Januar 2025</p>
+              <h2 style={{ margin: '40px 0 5px 0', fontSize: '24px', fontWeight: '700', color: '#0f172a' }}>{imeKorisnika}</h2>
+              <p style={{ color: '#475569', fontSize: '14px', margin: 0 }}>📧 {emailKorisnika} | 📍 Beograd | 📅 Januar 2025</p>
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button style={{ padding: '8px 16px', borderRadius: '8px', border: '1px solid #cbd5e1', backgroundColor: '#f8fafc', color: '#334155', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}>Podešavanja</button>
-              <button style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', backgroundColor: '#fee2e2', color: '#ef4444', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}>Odjavi se</button>
+              <button 
+                onClick={handleOdjava}
+                style={{ padding: '8px 16px', borderRadius: '8px', border: 'none', backgroundColor: '#fee2e2', color: '#ef4444', fontWeight: '600', fontSize: '13px', cursor: 'pointer' }}
+              >
+                Odjavi se
+              </button>
             </div>
           </div>
         </div>

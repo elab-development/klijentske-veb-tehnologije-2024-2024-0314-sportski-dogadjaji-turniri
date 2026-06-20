@@ -15,13 +15,12 @@ export const Dugme: React.FC<DugmeProps> = ({
     vrsta = 'primarno',
     stil
 }) => {
-    // Definisanje stilova na osnovu vrste dugmeta (izgled sa slike)
-    const jePrimarno = vrsta === 'primarno';
 
+    const jePrimarno = vrsta === 'primarno';
     const bazniStil: React.CSSProperties = {
         width: '100%',
         padding: '14px 24px',
-        borderRadius: '10px', // Lepo zaobljene ivice kao na slici
+        borderRadius: '10px',
         fontSize: '15px',
         fontWeight: '600',
         cursor: 'pointer',
@@ -31,12 +30,10 @@ export const Dugme: React.FC<DugmeProps> = ({
         justifyContent: 'center',
         gap: '8px',
         boxSizing: 'border-box',
-        // Različite boje za plavo i sivo dugme:
         border: jePrimarno ? 'none' : '1px solid #e2e8f0',
-        backgroundColor: jePrimarno ? '#1d4ed8' : '#f1f5f9', // Jarko plava i svetlo siva/bela
-        color: jePrimarno ? '#ffffff' : '#334155',          // Beli tekst za plavo dugme, tamniji za sivo
+        backgroundColor: jePrimarno ? '#1d4ed8' : '#f1f5f9',
+        color: jePrimarno ? '#ffffff' : '#334155',
     };
-
     return (
         <button type={tip} onClick={akcija} className={`dugme dugme-${vrsta}`} style={{ ...bazniStil, ...stil }}
         >
