@@ -14,36 +14,39 @@ export const Navigacija: React.FC = () => {
       borderBottom: '1px solid #333'
     }}>
       <div style={{
-        display: 'flex',
-        justifyContent: 'space-between',
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
         alignItems: 'center',
         width: '100%'
       }}>
-        <div style={{ fontSize: '20px', fontWeight: 'bold' }}>
+        <div style={{ fontSize: '20px', fontWeight: 'bold', justifySelf: 'start' }}>
           🏆 SportEvents
         </div>
-        <button 
-          onClick={() => setOtvoren(!otvoren)} 
-          style={{
-            display: 'none',
-            background: 'none',
-            border: 'none',
-            color: '#ffffff',
-            fontSize: '24px',
-            cursor: 'pointer',
-            padding: 0,
-            outline: 'none'
-          }}
-          className="hamburger-btn"
-        >
-          ☰
-        </button>
-        
-        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }} className="desktop-nav">
+
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center', justifySelf: 'center' }} className="desktop-nav">
           <Link to="/pocetna" style={{ color: '#ffffff', textDecoration: 'none' }}>Početna</Link>
           <Link to="/turniri" style={{ color: '#ffffff', textDecoration: 'none' }}>🏆 Turniri</Link>
           <Link to="/kreiraj-turnir" style={{ color: '#ffffff', textDecoration: 'none' }}>➕ Kreiraj</Link>
           <Link to="/profil" style={{ color: '#ffffff', textDecoration: 'none' }}>👤 Profil</Link>
+        </div>
+
+        <div style={{ justifySelf: 'end', display: 'flex', alignItems: 'center', gap: '12px' }}>
+          <button
+            onClick={() => setOtvoren(!otvoren)}
+            style={{
+              display: 'none',
+              background: 'none',
+              border: 'none',
+              color: '#ffffff',
+              fontSize: '24px',
+              cursor: 'pointer',
+              padding: 0,
+              outline: 'none'
+            }}
+            className="hamburger-btn"
+          >
+            ☰
+          </button>
           <Link to="/prijava" style={{
             color: '#ffffff',
             backgroundColor: '#2563eb',
@@ -55,7 +58,7 @@ export const Navigacija: React.FC = () => {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '6px'
-          }}>
+          }} className="desktop-nav">
             ➡️ Prijava
           </Link>
         </div>
@@ -69,7 +72,7 @@ export const Navigacija: React.FC = () => {
           marginTop: '15px',
           borderTop: '1px solid #333',
           paddingTop: '15px'
-        }} className="mobile-nav">
+        }}>
           <Link to="/pocetna" onClick={() => setOtvoren(false)} style={{ color: '#ffffff', textDecoration: 'none' }}>Početna</Link>
           <Link to="/turniri" onClick={() => setOtvoren(false)} style={{ color: '#ffffff', textDecoration: 'none' }}>🏆 Turniri</Link>
           <Link to="/kreiraj-turnir" onClick={() => setOtvoren(false)} style={{ color: '#ffffff', textDecoration: 'none' }}>➕ Kreiraj</Link>

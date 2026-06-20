@@ -22,6 +22,7 @@ export const LokacijaVreme: React.FC<LokacijaVremeProps> = ({ lokacija }) => {
     const [vreme, setVreme] = useState<VremenskiPodaci | null>(null);
     const [ucitavanje, setUcitavanje] = useState<boolean>(true);
     const [greska, setGreska] = useState<string | null>(null);
+    const [koordinate, setKoordinate] = useState<{ lat: number; lon: number } | null>(null);
 
     useEffect(() => {
         let aktivno = true;
@@ -33,6 +34,8 @@ export const LokacijaVreme: React.FC<LokacijaVremeProps> = ({ lokacija }) => {
                 const geoData = await geoRes.json();
                 const lat = geoData[0] ? parseFloat(geoData[0].lat) : 44.787197;
                 const lon = geoData[0] ? parseFloat(geoData[0].lon) : 20.4489216;
+
+                if (aktivno) setKoordinate({ lat, lon });
 
                 const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
                 if (!weatherRes.ok) throw new Error("Greška pri učitavanju vremena");
@@ -55,6 +58,10 @@ export const LokacijaVreme: React.FC<LokacijaVremeProps> = ({ lokacija }) => {
         ucitaj();
         return () => { aktivno = false; };
     }, [lokacija]);
+
+    const mapSrc = koordinate
+        ? `https://www.openstreetmap.org/export/embed.html?bbox=${koordinate.lon - 0.05}%2C${koordinate.lat - 0.03}%2C${koordinate.lon + 0.05}%2C${koordinate.lat + 0.03}&layer=mapnik&marker=${koordinate.lat}%2C${koordinate.lon}`
+        : '';
 
     return (
         <div style={{ marginTop: '16px', padding: '16px', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0', fontSize: '14px', color: '#334155' }}>
@@ -80,14 +87,20 @@ export const LokacijaVreme: React.FC<LokacijaVremeProps> = ({ lokacija }) => {
                     📍 Lokacija
                 </h4>
                 <div style={{ width: '100%', height: '220px', borderRadius: '8px', overflow: 'hidden', border: '1px solid #e2e8f0' }}>
-                    <iframe
-                        title="Mapa"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        src={`https://maps.google.com/maps?q=${encodeURIComponent(lokacija)}&t=&z=14&ie=UTF8&iwloc=&output=embed`}
-                        allowFullScreen
-                    ></iframe>
+                    {koordinate ? (
+                        <iframe
+                            title="Mapa"
+                            width="100%"
+                            height="100%"
+                            style={{ border: 0 }}
+                            src={mapSrc}
+                            allowFullScreen
+                        ></iframe>
+                    ) : (
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', color: '#94a3b8' }}>
+                            Učitavanje mape...
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
