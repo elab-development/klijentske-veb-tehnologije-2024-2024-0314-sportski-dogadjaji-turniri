@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import type { TurnirInterface } from '../modeli/turniri';
 import { TurnirMenadzer } from '../modeli/turniri';
 
@@ -134,29 +135,28 @@ export const Turniri: React.FC = () => {
                                 {/* Slika: position: relative omogućava da "Sport bedž" bude pozicioniran apsolutno unutar nje */}
                                 <div style={{ position: 'relative', width: '100%', height: '200px' }}>
                                     <img src={menadzer.urlSlike()} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                                    {/* Sport bedž: apsolutno pozicioniran u donji levi ugao slike */}
                                     <span style={{ position: 'absolute', bottom: '12px', left: '12px', backgroundColor: '#2563eb', color: '#ffffff', padding: '4px 12px', borderRadius: '20px', fontSize: '12px', fontWeight: '600' }}>
                                         {menadzer.sport()}
                                     </span>
                                 </div>
-                                {/* Sadržaj kartice: flexGrow: 1 gura sve elemente na ravnomernu raspodelu unutar kartice */}
                                 <div style={{ padding: '24px', display: 'flex', flexDirection: 'column', flexGrow: 1, justifyContent: 'space-between' }}>
                                     <div>
-                                        <h3 style={{ margin: '0 0 12px 0', fontSize: '20px', fontWeight: '700', color: '#1e293b' }}>{menadzer.naziv()}</h3>
+                                        <h3 style={{ margin: '0 0 12px 0', fontSize: '20px', fontWeight: '700', color: '#1e293b' }}>
+                                            <Link to={`/turnir/${turnir.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                                                {menadzer.naziv()}
+                                            </Link>
+                                        </h3>
                                         <div style={{ fontSize: '14px', color: '#64748b', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                                             <p style={{ margin: 0 }}>📍 {menadzer.lokacija()}</p>
                                             <p style={{ margin: 0 }}>👥 {turnir.prijavljenoTimova}/{menadzer.maxTimova()} timova</p>
                                         </div>
                                     </div>
 
-
-
-                                    {/* Status i strelica: justifyContent: space-between razdvaja status na levo, a strelicu na desno */}
                                     <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                         <span style={{ padding: '6px 14px', borderRadius: '20px', fontSize: '13px', backgroundColor: '#e6f4ea', color: '#137333', fontWeight: '600' }}>
                                             {menadzer.status()}
                                         </span>
-                                        <span style={{ color: '#2563eb', fontSize: '18px', fontWeight: 'bold' }}>➔</span>
+                                        <Link to={`/turnir/${turnir.id}`} style={{ color: '#2563eb', fontSize: '18px', fontWeight: 'bold', textDecoration: 'none' }}>➔</Link>
                                     </div>
                                 </div>
                             </div>
