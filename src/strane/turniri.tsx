@@ -1,31 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import type { TurnirInterface } from '../modeli/turniri';
 import { TurnirMenadzer } from '../modeli/turniri';
 
 export const Turniri: React.FC = () => {
-    const [turniri, setTurniri] = useState<TurnirInterface[]>([]);
-    const [ucitavanje, setUcitavanje] = useState<boolean>(true);
-    const [pretraga, setPretraga] = useState<string>('');
-    const [izabraniSport, setIzabraniSport] = useState<string>('Svi');
-    const [statusFilter, setStatusFilter] = useState<string>('Svi');
+    const [turniri] = useState<TurnirInterface[]>(() => {
+        const stored = localStorage.getItem('turniri');
+        if (stored) return JSON.parse(stored);
 
-    const prikazaniTurniri = turniri.filter((turnir) => {
-        const poklapaNaziv = turnir.naziv.toLowerCase().includes(pretraga.toLowerCase());
-        const poklapaSport = izabraniSport === 'Svi' || turnir.sport === izabraniSport;
-        const poklapaStatus = statusFilter === 'Svi' || turnir.status === statusFilter;
-
-        return poklapaNaziv && poklapaSport && poklapaStatus;
-    });
-
-
-    const [trenutnaStranica, setTrenutnaStranica] = useState<number>(1);
-    const turniraPoStranici = 6;
-    const poslednjiIndeks = trenutnaStranica * turniraPoStranici;
-    const prviIndeks = poslednjiIndeks - turniraPoStranici;
-    const trenutniTurniri = prikazaniTurniri.slice(prviIndeks, poslednjiIndeks);
-
-    useEffect(() => {
         const testPodaci: TurnirInterface[] = [
             {
                 id: 1,
@@ -84,19 +66,29 @@ export const Turniri: React.FC = () => {
                 naziv: `${sablon.naziv} #${index + 1}`
             };
         });
-        const tajmer = setTimeout(() => {
-            setTurniri(mnogoTurnira);
-            setUcitavanje(false);
-        }, 1000);
+        localStorage.setItem('turniri', JSON.stringify(mnogoTurnira));
+        return mnogoTurnira;
+    });
+    const [pretraga, setPretraga] = useState<string>('');
+    const [izabraniSport, setIzabraniSport] = useState<string>('Svi');
+    const [statusFilter, setStatusFilter] = useState<string>('Svi');
 
-        return () =>
-            clearTimeout(tajmer);
-    }, []);
+    const prikazaniTurniri = turniri.filter((turnir) => {
+        const poklapaNaziv = turnir.naziv.toLowerCase().includes(pretraga.toLowerCase());
+        const poklapaSport = izabraniSport === 'Svi' || turnir.sport === izabraniSport;
+        const poklapaStatus = statusFilter === 'Svi' || turnir.status === statusFilter;
+
+        return poklapaNaziv && poklapaSport && poklapaStatus;
+    });
 
 
-    if (ucitavanje) {
-        return <div style={{ padding: '20px', textAlign: 'center' }}>Učitavanje...</div>;
-    }
+    const [trenutnaStranica, setTrenutnaStranica] = useState<number>(1);
+    const turniraPoStranici = 6;
+    const poslednjiIndeks = trenutnaStranica * turniraPoStranici;
+    const prviIndeks = poslednjiIndeks - turniraPoStranici;
+    const trenutniTurniri = prikazaniTurniri.slice(prviIndeks, poslednjiIndeks);
+
+
 
     const brojStranica = Math.ceil(prikazaniTurniri.length / turniraPoStranici);
     return (

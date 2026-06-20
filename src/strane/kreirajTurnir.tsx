@@ -89,14 +89,27 @@ export const KreirajTurnir: React.FC = () => {
     e.preventDefault();
     if (greskaDatuma) return;
 
-    // 2. REŠENJE: Ovde pozivamo spoljnu funkciju koja bezbedno generiše trenutno vreme
-    const konacniTurnir: TurnirInterface = {
+    const konacniDatumPocetka = kreirajDatumSaFallbackom(forma.datumPocetka);
+    const konacniDatumZavrsetka = kreirajDatumSaFallbackom(forma.datumZavrsetka);
+
+    const stored = localStorage.getItem('turniri');
+    let trenutniTurniri: TurnirInterface[] = [];
+    if (stored) {
+      trenutniTurniri = JSON.parse(stored);
+    }
+    const noviId = trenutniTurniri.length > 0 ? Math.max(...trenutniTurniri.map(t => t.id)) + 1 : 1;
+
+    const noviTurnir: TurnirInterface = {
       ...privremeniTurnir,
-      datumPocetka: kreirajDatumSaFallbackom(forma.datumPocetka),
-      datumZavrsetka: kreirajDatumSaFallbackom(forma.datumZavrsetka),
+      id: noviId,
+      datumPocetka: konacniDatumPocetka,
+      datumZavrsetka: konacniDatumZavrsetka,
+      urlSlike: forma.urlSlike || (forma.sport === 'Košarka' ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=500' : forma.sport === 'Tenis' ? 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=500' : 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500'),
     };
 
-    console.log('Turnir spreman za slanje:', konacniTurnir);
+    trenutniTurniri.unshift(noviTurnir);
+    localStorage.setItem('turniri', JSON.stringify(trenutniTurniri));
+
     setPorukaUspeha(`Uspešno ste kreirali turnir: "${forma.naziv}"!`);
 
     setForma({

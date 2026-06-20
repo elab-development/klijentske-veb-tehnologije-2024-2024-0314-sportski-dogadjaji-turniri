@@ -1,38 +1,56 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { LokacijaVreme } from '../komponente/LokacijaVreme';
+import type { TurnirInterface } from '../modeli/turniri';
 
 export const TurnirDetalji: React.FC = () => {
     const { id } = useParams<{ id: string }>();
     const idNum = parseInt(id || '1', 10);
-    const mod = idNum % 3;
-    const isTenis = mod === 0;
-    const isKosarka = mod === 2;
 
-    const naziv = isTenis 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [id]);
+
+    const stored = localStorage.getItem('turniri');
+    const pronadjeni = stored ? (JSON.parse(stored) as TurnirInterface[]).find(t => t.id === idNum) : null;
+
+    const mod = idNum % 3;
+    const isTenis = pronadjeni ? pronadjeni.sport === 'Tenis' : mod === 0;
+    const isKosarka = pronadjeni ? pronadjeni.sport === 'Košarka' : mod === 2;
+
+    const naziv = pronadjeni ? pronadjeni.naziv : isTenis 
         ? `Teniski Open Šampionat #${idNum}`
         : isKosarka 
         ? `Košarkaška Liga - Prolećna Sezona #${idNum}`
         : `Letnji Fudbalski Turnir 2026 #${idNum}`;
 
-    const sport = isTenis ? 'Tenis' : isKosarka ? 'Košarka' : 'Fudbal';
-    const status = isTenis ? 'Popunjeno' : 'Otvorene prijave';
-    const lokacija = isTenis ? 'Niš, Srbija' : isKosarka ? 'Novi Sad, Srbija' : 'Stadion FK Partizan, Beograd, Srbija';
-    const datumPocetka = isTenis ? '10 Jul 2026' : isKosarka ? '01 Jun 2026' : '15 Jun 2026';
-    const datumZavrsetka = isTenis ? '15 Jul 2026' : isKosarka ? '30 Jun 2026' : '20 Jun 2026';
-    const rokPrijava = isTenis ? '05 Jul 2026' : isKosarka ? '25 Maj 2026' : '10 Jun 2026';
-    const maxTimova = isTenis ? 32 : isKosarka ? 12 : 16;
-    const prijavljenoTimova = isTenis ? 32 : isKosarka ? 8 : 16;
-    const kotizacija = isTenis ? 3000 : isKosarka ? 4000 : 5000;
-    const nagradniFond = isTenis ? 60000 : isKosarka ? 45000 : 50000;
-    const format = isTenis ? 'Kup sistem na ispadanje' : isKosarka ? 'Ligaški sistem' : 'Grupna faza + Nokaut sistem';
-    const slikaPozadine = isTenis 
+    const sport = pronadjeni ? pronadjeni.sport : isTenis ? 'Tenis' : isKosarka ? 'Košarka' : 'Fudbal';
+    const status = pronadjeni ? pronadjeni.status : isTenis ? 'Popunjeno' : 'Otvorene prijave';
+    const lokacija = pronadjeni ? pronadjeni.lokacija : isTenis ? 'Niš, Srbija' : isKosarka ? 'Novi Sad, Srbija' : 'Stadion FK Partizan, Beograd, Srbija';
+    
+    const formatujDatum = (d: Date | string | number | null | undefined) => {
+        if (!d) return '';
+        const dateObj = new Date(d);
+        if (isNaN(dateObj.getTime())) return String(d);
+        return dateObj.toLocaleDateString('sr-RS', { day: '2-digit', month: 'short', year: 'numeric' });
+    };
+
+    const datumPocetka = pronadjeni ? formatujDatum(pronadjeni.datumPocetka) : isTenis ? '10 Jul 2026' : isKosarka ? '01 Jun 2026' : '15 Jun 2026';
+    const datumZavrsetka = pronadjeni ? formatujDatum(pronadjeni.datumZavrsetka) : isTenis ? '15 Jul 2026' : isKosarka ? '30 Jun 2026' : '20 Jun 2026';
+    const rokPrijava = pronadjeni ? formatujDatum(new Date(new Date(pronadjeni.datumPocetka).getTime() - 5*24*60*60*1000)) : isTenis ? '05 Jul 2026' : isKosarka ? '25 Maj 2026' : '10 Jun 2026';
+    const maxTimova = pronadjeni ? pronadjeni.maxTimova : isTenis ? 32 : isKosarka ? 12 : 16;
+    const prijavljenoTimova = pronadjeni ? pronadjeni.prijavljenoTimova : isTenis ? 32 : isKosarka ? 8 : 16;
+    const kotizacija = pronadjeni ? pronadjeni.kotizacija : isTenis ? 3000 : isKosarka ? 4000 : 5000;
+    const nagradniFond = pronadjeni ? pronadjeni.nagradniFond : isTenis ? 60000 : isKosarka ? 45000 : 50000;
+    const format = pronadjeni ? pronadjeni.format : isTenis ? 'Kup sistem na ispadanje' : isKosarka ? 'Ligaški sistem' : 'Grupna faza + Nokaut sistem';
+    
+    const slikaPozadine = pronadjeni ? pronadjeni.urlSlike : isTenis 
         ? 'https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=1200'
         : isKosarka 
         ? 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=1200'
         : 'https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=1200';
 
-    const pravila = isTenis ? [
+    const pravila = pronadjeni && pronadjeni.opis ? [pronadjeni.opis] : isTenis ? [
         'Igra se na dva dobijena seta',
         'Standardna teniska pravila i tie-break',
         'U slučaju kiše, mečevi se odlažu za naredni dan',
